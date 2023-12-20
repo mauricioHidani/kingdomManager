@@ -1,4 +1,4 @@
-package com.kingdom.manager.repositories;
+package com.kingdom.manager.persists;
 
 public interface BankAccountRepository {
 }

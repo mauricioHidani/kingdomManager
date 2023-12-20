@@ -9,7 +9,6 @@ public record Person(
         String document,
         PersonType type,
         Set<Address> addresses,
-        Set<Contact> contacts,
-        Set<BankAccount> bankAccounts
+        Set<Contact> contacts
 ) {
 }

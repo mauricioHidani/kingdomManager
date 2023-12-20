@@ -6,7 +6,7 @@ import java.util.UUID;
 
 public record Address(
         UUID id,
-        Set<AddressTypes> types,
+        Set<AddressType> types,
         String publicPlace,
         String number,
         String complement,

@@ -1,6 +1,6 @@
 package com.kingdom.manager.models;
 
-public record AddressTypes(
+public record AddressType(
         Integer id,
         String title,
         String description

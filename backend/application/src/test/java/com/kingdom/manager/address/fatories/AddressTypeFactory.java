@@ -36,6 +36,10 @@ public class AddressTypeFactory {
         );
     }
 
+    public static Integer id() {
+        return 1;
+    }
+
     public static String title() {
         return "commercial";
     }

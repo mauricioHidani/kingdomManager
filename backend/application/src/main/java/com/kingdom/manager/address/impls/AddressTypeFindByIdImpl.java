@@ -7,8 +7,6 @@ import com.kingdom.manager.exceptions.ResourceNotFoundException;
 import com.kingdom.manager.models.AddressType;
 import com.kingdom.manager.persists.AddressTypeRepository;
 
-import java.util.Optional;
-
 public class AddressTypeFindByIdImpl implements AddressTypeFindById {
 
     private final AddressTypeRepository repository;

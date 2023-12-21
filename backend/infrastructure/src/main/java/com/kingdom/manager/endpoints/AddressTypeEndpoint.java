@@ -30,4 +30,9 @@ public class AddressTypeEndpoint {
         return ResponseEntity.ok(service.findById(id));
     }
 
+    @GetMapping("/title/{title}")
+    public ResponseEntity<AddressTypeResponse> findByTitle(@PathVariable String title) {
+        return ResponseEntity.ok(service.findByTitle(title));
+    }
+
 }

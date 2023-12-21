@@ -1,29 +1,33 @@
 package com.kingdom.manager.endpoints;
 
-import com.kingdom.manager.address.AddressTypeCreate;
 import com.kingdom.manager.address.requests.AddressTypeRequest;
 import com.kingdom.manager.address.responses.AddressTypeResponse;
+import com.kingdom.manager.services.AddressTypeService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/v1/address-types")
 public class AddressTypeEndpoint {
 
-    private final AddressTypeCreate create;
+    private final AddressTypeService service;
 
-    public AddressTypeEndpoint(AddressTypeCreate create) {
-        this.create = create;
+    public AddressTypeEndpoint(AddressTypeService service) {
+        this.service = service;
     }
 
     @PostMapping
     public ResponseEntity<AddressTypeResponse> create(
             @RequestBody AddressTypeRequest request
     ) {
-        return ResponseEntity.ok(create.execute(request));
+        return ResponseEntity.ok(service.create(request));
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<AddressTypeResponse> findById(
+            @PathVariable Integer id
+    ) {
+        return ResponseEntity.ok(service.findById(id));
     }
 
 }

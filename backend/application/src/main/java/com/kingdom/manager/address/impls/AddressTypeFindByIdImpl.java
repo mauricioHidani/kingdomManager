@@ -22,7 +22,7 @@ public class AddressTypeFindByIdImpl implements AddressTypeFindById {
 
         AddressType found = repository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException(
-                        "There not possible to find address type by title"
+                        "There not possible to find address type by id"
                 ));
 
         return AddressTypeResponse.from(found);

@@ -32,7 +32,13 @@ public class AddressTypeRepositoryImpl implements AddressTypeRepository {
 
     @Override
     public Optional<AddressType> findById(Integer id) {
-        return Optional.empty();
+        return repository.findById(id)
+            .map(addressTypeEntity -> new AddressType(
+                addressTypeEntity.getId(),
+                addressTypeEntity.getTitle(),
+                addressTypeEntity.getDescription()
+            )
+        );
     }
 
     @Override public Boolean existingByTitle(String title) {

@@ -17,7 +17,7 @@ public class AddressTypeCreateImpl implements AddressTypeCreate {
     }
 
     @Override public AddressTypeResponse execute(AddressTypeRequest request) {
-        if (repository.findByTitle(request.title()) != null) {
+        if (repository.existingByTitle(request.title())) {
             throw new DatabaseIntegrityException("It is not possible to save the same existing address type");
         }
 

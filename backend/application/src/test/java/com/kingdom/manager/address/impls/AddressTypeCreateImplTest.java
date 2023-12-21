@@ -30,12 +30,12 @@ class AddressTypeCreateImplTest {
 
     @DisplayName("Save Address Type Should Return Saved When Successful Save")
     @Test void execute_whenSuccessfulSave() {
-        when(repository.findByTitle(AddressTypeFactory.title())).thenReturn(null);
+        when(repository.existingByTitle(AddressTypeFactory.title())).thenReturn(false);
         when(repository.save(AddressTypeFactory.newModel())).thenReturn(AddressTypeFactory.newModel(1));
 
         var result = useCase.execute(AddressTypeFactory.newRequest());
 
-        verify(repository, times(1)).findByTitle(any(String.class));
+        verify(repository, times(1)).existingByTitle(any(String.class));
         verify(repository, times(1)).save(any(AddressType.class));
 
         assertNotNull(result);
@@ -45,19 +45,19 @@ class AddressTypeCreateImplTest {
 
     @DisplayName("Save address Type Should Return Database Integrity Exception When Address Type Exist")
     @Test void execute_whenAddressExist() {
-        when(repository.findByTitle(AddressTypeFactory.title())).thenReturn(AddressTypeFactory.newModel(1));
+        when(repository.existingByTitle(AddressTypeFactory.title())).thenReturn(true);
         assertThrows(DatabaseIntegrityException.class, () -> useCase.execute(AddressTypeFactory.newRequest()));
 
-        verify(repository, times(1)).findByTitle(AddressTypeFactory.title());
+        verify(repository, times(1)).existingByTitle(AddressTypeFactory.title());
     }
 
     @DisplayName("Save Address Type Should Return Database Exception When Does Not Save")
     @Test void execute_whenDoesNotSave() {
-        when(repository.findByTitle(AddressTypeFactory.title())).thenReturn(null);
+        when(repository.existingByTitle(AddressTypeFactory.title())).thenReturn(false);
         when(repository.save(AddressTypeFactory.newModel())).thenReturn(null);
         assertThrows(DatabaseException.class, () -> useCase.execute(AddressTypeFactory.newRequest()));
 
-        verify(repository, times(1)).findByTitle(any(String.class));
+        verify(repository, times(1)).existingByTitle(any(String.class));
         verify(repository, times(1)).save(any(AddressType.class));
     }
 }

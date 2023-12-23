@@ -9,8 +9,8 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
+    <groupId>com.kingdom.manager.domain</groupId>
     <artifactId>domain</artifactId>
-    <name>Domain</name>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>

@@ -10,22 +10,17 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
 
+    <groupId>com.kingdom.manager.infrastructure</groupId>
     <artifactId>infrastructure</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <name>Infrastructure</name>
 
     <properties>
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
     <dependencies>
-        <dependency>
-            <groupId>com.kingdom.manager</groupId>
-            <artifactId>domain</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
-            <scope>compile</scope>
-        </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
@@ -38,7 +33,6 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
-
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-devtools</artifactId>
@@ -61,7 +55,19 @@
             <scope>test</scope>
         </dependency>
         <dependency>
-            <groupId>com.kingdom.manager</groupId>
+            <groupId>com.kingdom.manager.application</groupId>
+            <artifactId>application</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.kingdom.manager.application</groupId>
+            <artifactId>application</artifactId>
+            <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>com.kingdom.manager.application</groupId>
             <artifactId>application</artifactId>
             <version>0.0.1-SNAPSHOT</version>
             <scope>compile</scope>

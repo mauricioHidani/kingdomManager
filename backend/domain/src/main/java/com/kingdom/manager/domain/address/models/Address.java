@@ -14,6 +14,7 @@ public record Address(
         String state,
         String country,
         String zipcode,
-        LocalDate register
+        LocalDate register,
+        UUID ownerId
 ) {
 }

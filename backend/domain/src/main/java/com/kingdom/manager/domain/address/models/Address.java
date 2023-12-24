@@ -10,6 +10,7 @@ public record Address(
         String publicPlace,
         String number,
         String complement,
+        String neighborhood,
         String city,
         String state,
         String country,

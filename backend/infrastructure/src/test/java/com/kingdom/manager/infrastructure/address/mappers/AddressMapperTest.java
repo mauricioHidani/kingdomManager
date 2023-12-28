@@ -27,7 +27,7 @@ class AddressMapperTest {
         entity = AddressFactory.newEntity(id);
     }
 
-    @DisplayName("Convert Model To Entity Should Return Entity When ")
+    @DisplayName("Convert Model To Entity Should Return Entity When Successful Convert")
     @Test void toEntity_whenSuccessfulConvert() {
         try (MockedStatic<AddressMapper> utilities = mockStatic(AddressMapper.class)) {
             utilities.when(() -> AddressMapper.toEntity(modelWithId)).thenReturn(entity);

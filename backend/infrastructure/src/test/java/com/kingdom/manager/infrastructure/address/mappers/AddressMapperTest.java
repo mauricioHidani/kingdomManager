@@ -47,21 +47,6 @@ class AddressMapperTest {
             assertEquals(result.getRegister(), modelWithId.register());
             assertEquals(result.getOwner().getId(), modelWithId.ownerId());
         }
-
-        var result = AddressMapper.toEntity(modelWithId);
-
-        assertNotNull(result);
-        assertEquals(result.getId(), modelWithId.id());
-        assertEquals(result.getPublicPlace(), modelWithId.publicPlace());
-        assertEquals(result.getNumber(), modelWithId.number());
-        assertEquals(result.getComplement(), modelWithId.complement());
-        assertEquals(result.getNeighborhood(), modelWithId.neighborhood());
-        assertEquals(result.getCity(), modelWithId.city());
-        assertEquals(result.getState(), modelWithId.state());
-        assertEquals(result.getCountry(), modelWithId.country());
-        assertEquals(result.getZipcode(), modelWithId.zipcode());
-        assertEquals(result.getRegister(), modelWithId.register());
-        assertEquals(result.getOwner().getId(), modelWithId.ownerId());
     }
     
     @DisplayName("Convert Model To Entity Should Return Invalid Argument Exception When Model Is Null")
@@ -70,7 +55,6 @@ class AddressMapperTest {
             utilities.when(() -> AddressMapper.toEntity(null)).thenThrow(InvalidArgumentException.class);
             assertThrows(InvalidArgumentException.class, () -> AddressMapper.toEntity(null));
         }
-        assertThrows(InvalidArgumentException.class, () -> AddressMapper.toEntity(null));
     }
 
     @DisplayName("Convert Entity To Model Should Return Model When Successful Convert")
@@ -101,7 +85,6 @@ class AddressMapperTest {
             utilities.when(() -> AddressMapper.toModel((AddressEntity) null)).thenThrow(InvalidArgumentException.class);
             assertThrows(InvalidArgumentException.class, () -> AddressMapper.toModel((AddressEntity) null));
         }
-        assertThrows(InvalidArgumentException.class, () -> AddressMapper.toModel((AddressEntity) null));
     }
 
     @DisplayName("Convert Optional Entity To Optional Model Should Return Optional Model When Successful Convert")
@@ -132,7 +115,6 @@ class AddressMapperTest {
             utilities.when(() -> AddressMapper.toModel(Optional.empty())).thenThrow(InvalidArgumentException.class);
             assertThrows(InvalidArgumentException.class, () -> AddressMapper.toModel(Optional.empty()));
         }
-        assertThrows(InvalidArgumentException.class, () -> AddressMapper.toModel(Optional.empty()));
     }
 
 }

@@ -1,1 +1,3 @@
 .brainRepository/
+.idea/**
+backend/.idea/**

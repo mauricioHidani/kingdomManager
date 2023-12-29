@@ -8,6 +8,7 @@ import com.kingdom.manager.infrastructure.address.persists.entities.AddressTypeE
 import com.kingdom.manager.infrastructure.address.persists.entities.PersonEntity;
 
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 public class AddressMapper {
     public static AddressEntity toEntity(Address model) {
@@ -18,7 +19,7 @@ public class AddressMapper {
         }
         return new AddressEntity(
                 model.id(),
-                model.types(),
+                model.types().stream().map(AddressTypeMapper::toEntity).collect(Collectors.toSet()),
                 model.publicPlace(),
                 model.number(),
                 model.complement(),
@@ -40,7 +41,7 @@ public class AddressMapper {
         }
         return new Address(
                 entity.getId(),
-                entity.getTypes(),
+                entity.getTypes().stream().map(AddressTypeMapper::toModel).collect(Collectors.toSet()),
                 entity.getPublicPlace(),
                 entity.getNumber(),
                 entity.getComplement(),
@@ -63,7 +64,7 @@ public class AddressMapper {
         var entity = entityOptional.get();
         return Optional.of(new Address(
                 entity.getId(),
-                entity.getTypes(),
+                entity.getTypes().stream().map(AddressTypeMapper::toModel).collect(Collectors.toSet()),
                 entity.getPublicPlace(),
                 entity.getNumber(),
                 entity.getComplement(),

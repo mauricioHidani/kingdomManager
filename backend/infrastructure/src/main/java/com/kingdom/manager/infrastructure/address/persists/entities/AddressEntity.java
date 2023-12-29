@@ -6,6 +6,7 @@ import jakarta.persistence.*;
 import java.io.Serial;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
@@ -25,7 +26,7 @@ public class AddressEntity implements Serializable {
             name = "addresses_has_types",
             joinColumns = @JoinColumn(name = "address_id"),
             inverseJoinColumns = @JoinColumn(name = "type_id"))
-    private Set<AddressType> types;
+    private Set<AddressTypeEntity> types = new HashSet<AddressTypeEntity>();
 
     @Column(length = 128, nullable = false)
     private String publicPlace;
@@ -67,7 +68,7 @@ public class AddressEntity implements Serializable {
     public AddressEntity() {
     }
 
-    public AddressEntity(Set<AddressType> types, String publicPlace, String number, String complement,
+    public AddressEntity(Set<AddressTypeEntity> types, String publicPlace, String number, String complement,
                          String neighborhood, String city, String state, String country, String zipcode,
                          LocalDate register, PersonEntity owner) {
         this.types = types;
@@ -83,7 +84,7 @@ public class AddressEntity implements Serializable {
         this.owner = owner;
     }
 
-    public AddressEntity(UUID id, Set<AddressType> types, String publicPlace, String number, String complement,
+    public AddressEntity(UUID id, Set<AddressTypeEntity> types, String publicPlace, String number, String complement,
                          String neighborhood, String city, String state, String country, String zipcode,
                          LocalDate register, PersonEntity owner) {
         this.id = id;
@@ -106,11 +107,11 @@ public class AddressEntity implements Serializable {
         return id;
     }
 
-    public Set<AddressType> getTypes() {
+    public Set<AddressTypeEntity> getTypes() {
         return types;
     }
 
-    public void addType(AddressType type) {
+    public void addType(AddressTypeEntity type) {
         this.types.add(type);
     }
 

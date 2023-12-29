@@ -6,9 +6,10 @@
     <parent>
         <groupId>com.kingdom.manager</groupId>
         <artifactId>kingdom.manager</artifactId>
-        <version>1.0-SNAPSHOT</version>
+        <version>0.0.1-SNAPSHOT</version>
     </parent>
 
+    <groupId>com.kingdom.manager.domain</groupId>
     <artifactId>domain</artifactId>
 
     <properties>

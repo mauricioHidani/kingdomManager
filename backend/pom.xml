@@ -6,13 +6,12 @@
 
     <groupId>com.kingdom.manager</groupId>
     <artifactId>kingdom.manager</artifactId>
-    <version>1.0-SNAPSHOT</version>
+    <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <modules>
         <module>domain</module>
-        <module>infrastructure</module>
         <module>application</module>
-        <module>api</module>
+        <module>infrastructure</module>
     </modules>
 
     <properties>

@@ -24,15 +24,17 @@ class AddressTypeFindByIdImplTest {
 
     private AddressType modelWithId;
 
-    @BeforeEach void setUp() throws Exception {
+    @BeforeEach
+    void setUp() throws Exception {
         gateway = Mockito.mock(AddressTypeGateway.class);
         useCase = new AddressTypeFindByIdImpl(gateway);
 
         modelWithId = AddressTypeFactory.newModel(1);
     }
 
+    @Test
     @DisplayName("Find By Id Should Return Found When Successful Find")
-    @Test void execute_whenSuccessfulFind() {
+    void findByIdShouldReturnFoundWhenSuccessfulFind() {
         when(gateway.findById(1)).thenReturn(Optional.of(modelWithId));
 
         var result = useCase.execute(1);
@@ -44,18 +46,21 @@ class AddressTypeFindByIdImplTest {
         assertEquals(result.description(), modelWithId.description());
     }
 
-    @DisplayName("Find By Id Should Return Invalid Argument Exception When Id Is Null")
-    @Test void execute_whenIdIsNull() {
+    @Test
+    @DisplayName("Find By Id Should Throw Invalid Argument Exception When Id Is Null")
+    void findByIdShouldThrowInvalidArgumentExceptionWhenIdIsNull() {
         assertThrows(InvalidArgumentException.class, () -> useCase.execute(null));
     }
 
-    @DisplayName("Find By Id Should Return Invalid Argument Exception When Id Less Then One")
-    @Test void execute_whenIdLessThenOne() {
+    @Test
+    @DisplayName("Find By Id Should Throw Invalid Argument Exception When Id Less Then One")
+    void findByIdShouldThrowInvalidArgumentExceptionWhenIdLessThenOne() {
         assertThrows(InvalidArgumentException.class, () -> useCase.execute(-1));
     }
 
-    @DisplayName("Find By Id Should Return Resource Not Found Exception When Does Not Found")
-    @Test void execute_whenDoesNotFound() {
+    @Test
+    @DisplayName("Find By Id Should Throw Resource Not Found Exception When Does Not Found")
+    void findByIdShouldThrowResourceNotFoundExceptionWhenDoesNotFound() {
         when(gateway.findById(1000)).thenReturn(Optional.empty());
         assertThrows(ResourceNotFoundException.class, () -> useCase.execute(1000));
 

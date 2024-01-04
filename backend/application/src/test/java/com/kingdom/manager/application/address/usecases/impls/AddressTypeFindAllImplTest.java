@@ -21,15 +21,17 @@ class AddressTypeFindAllImplTest {
 
     private AddressType modelWithId;
 
-    @BeforeEach void setUp() {
+    @BeforeEach
+    void setUp() throws Exception {
         gateway = Mockito.mock(AddressTypeGateway.class);
         useCase = new AddressTypeFindAllImpl(gateway);
 
         modelWithId = AddressTypeFactory.newModel(1);
     }
 
-    @DisplayName("Find All Should Return All Found When Successful Find")
-    @Test void execute_whenSuccessfulFind() {
+    @Test
+    @DisplayName("Find All Should Return Found When Successful Find")
+    void findAllShouldReturnFoundWhenSuccessfulFind() {
         when(gateway.findAll()).thenReturn(List.of(modelWithId));
 
         var result = useCase.execute();
@@ -42,8 +44,9 @@ class AddressTypeFindAllImplTest {
         assertEquals(result.getFirst().description(), modelWithId.description());
     }
 
-    @DisplayName("Find All Should Return Resource Not Found Exception When Not Found")
-    @Test void execute_whenNotFound() {
+    @Test
+    @DisplayName("Find All Should Throw Resource Not Found Exception When Not Found")
+    void findAllShouldThrowResourceNotFoundExceptionWhenNotFound() {
         when(gateway.findAll()).thenReturn(List.of());
 
         assertThrows(ResourceNotFoundException.class, () -> useCase.execute());

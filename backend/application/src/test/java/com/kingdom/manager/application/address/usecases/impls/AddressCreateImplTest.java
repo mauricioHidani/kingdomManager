@@ -28,7 +28,8 @@ class AddressCreateImplTest {
     private AddressInput input;
     private AddressOutput output;
 
-    @BeforeEach void setUp() throws Exception {
+    @BeforeEach
+    void setUp() throws Exception {
         gateway = Mockito.mock(AddressGateway.class);
         useCase = new AddressCreateImpl(gateway);
 
@@ -39,8 +40,9 @@ class AddressCreateImplTest {
         output = AddressFactory.newOutput(id);
     }
 
-    @DisplayName("Create Address Should Return Output When Successful Create")
-    @Test void execute_whenSuccessfulCreate() {
+    @Test
+    @DisplayName("Create Should Return Output When Successful Create")
+    void createShouldReturnOutputWhenSuccessfulCreate() {
         when(gateway.save(newModel)).thenReturn(modelWithId);
 
         var result = useCase.execute(input);
@@ -61,13 +63,15 @@ class AddressCreateImplTest {
         assertEquals(result.ownerId(), output.ownerId());
     }
 
-    @DisplayName("Create Address Should Return Invalid Argument Exception When Input Is Null")
-    @Test void execute_whenInputIsNull() {
+    @Test
+    @DisplayName("Create Should Throw Invalid Argument Exception When Input Is Null")
+    void createShouldThrowInvalidArgumentExceptionWhenInputIsNull() {
         assertThrows(InvalidArgumentException.class, () -> useCase.execute(null));
     }
 
-    @DisplayName("Create Address Should Return Database Exception When Does Not Create")
-    @Test void execute_whenDoesNotCreate() {
+    @Test
+    @DisplayName("Create Should Throw Database Exception When Does Not Create")
+    void createShouldThrowDatabaseExceptionWhenDoesNotCreate() {
         when(gateway.save(newModel)).thenReturn(null);
 
         assertThrows(DatabaseException.class, () -> useCase.execute(input));

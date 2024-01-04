@@ -16,13 +16,15 @@ class AddressTypeDeleteImplTest {
     private AddressTypeGateway gateway;
     private AddressTypeDeleteImpl useCase;
 
-    @BeforeEach void setUp() throws Exception {
+    @BeforeEach
+    void setUp() throws Exception {
         gateway = Mockito.mock(AddressTypeGateway.class);
         useCase = new AddressTypeDeleteImpl(gateway);
     }
 
+    @Test
     @DisplayName("Delete By Id Should Return Nothing When Successful Delete")
-    @Test void execute_whenSuccessfulDelete() {
+    void deleteByIdShouldReturnNothingWhenSuccessfulDelete() {
         doNothing().when(gateway).delete(1);
         when(gateway.existingById(1)).thenReturn(true);
 
@@ -32,18 +34,21 @@ class AddressTypeDeleteImplTest {
         verify(gateway, times(1)).delete(any(Integer.class));
     }
 
-    @DisplayName("Delete By Id Should Return Invalid Argument Exception When Id Is Null")
-    @Test void execute_whenIdIsNull() {
+    @Test
+    @DisplayName("Delete By Id Should Throw Invalid Argument Exception When Id Is Null")
+    void deleteByIdShouldThrowInvalidArgumentExceptionWhenIdIsNull() {
         assertThrows(InvalidArgumentException.class, () -> useCase.execute(null));
     }
 
-    @DisplayName("Delete By Id Should Return Invalid Argument Exception When Id Less Then One")
-    @Test void execute_whenIdLessThenOne() {
+    @Test
+    @DisplayName("Delete By Id Should Throw Invalid Argument Exception When Id Less Then One")
+    void deleteByIdShouldThrowInvalidArgumentExceptionWhenIdLessThenOne() {
         assertThrows(InvalidArgumentException.class, () -> useCase.execute(-1));
     }
 
-    @DisplayName("Delete By Id Should Return Resource Not Found Exception When Does Not Found")
-    @Test void execute_whenDoesNotFound() {
+    @Test
+    @DisplayName("Delete By Id Should Throw Resource Not Found Exception When Does Not Found")
+    void deleteByIdShouldThrowResourceNotFoundExceptionWhenDoesNotFound() {
         when(gateway.existingById(1000)).thenReturn(false);
 
         assertThrows(ResourceNotFoundException.class, () -> useCase.execute(1000));

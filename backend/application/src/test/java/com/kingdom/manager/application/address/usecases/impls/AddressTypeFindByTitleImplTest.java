@@ -20,15 +20,17 @@ class AddressTypeFindByTitleImplTest {
 
     private AddressType modelWithId;
 
-    @BeforeEach void setUp() throws Exception {
+    @BeforeEach
+    void setUp() throws Exception {
         gateway = Mockito.mock(AddressTypeGateway.class);
         useCase = new AddressTypeFindByTitleImpl(gateway);
 
         modelWithId = AddressTypeFactory.newModel(1);
     }
 
+    @Test
     @DisplayName("Find By Title Should Return Found When Successful Find")
-    @Test void execute_whenSuccessfulFind() {
+    void findByTitleShouldReturnFoundWhenSuccessfulFind() {
         when(gateway.findByTitle("legal")).thenReturn(modelWithId);
 
         var result = useCase.execute("legal");
@@ -40,13 +42,15 @@ class AddressTypeFindByTitleImplTest {
         assertEquals(result.description(), modelWithId.description());
     }
 
-    @DisplayName("Find By Title Should Return Invalid Argument Exception When Title Is Blank")
-    @Test void execute_whenTitleIsBlank() {
+    @Test
+    @DisplayName("Find By Title Should Throw Invalid Argument Exception When Title Is Blank")
+    void findByTitleShouldThrowInvalidArgumentExceptionWhenTitleIsBlank() {
         assertThrows(InvalidArgumentException.class, () -> useCase.execute(""));
     }
 
-    @DisplayName("Find By Title Should Return Resource Not Found Exception When Does Not Found")
-    @Test void execute_whenDoesNotFound() {
+    @Test
+    @DisplayName("Find By Title Should Throw Resource Not Found Exception When Does Not Found")
+    void findByTitleShouldThrowResourceNotFoundExceptionWhenDoesNotFound() {
         when(gateway.findByTitle("legal")).thenReturn(null);
         assertThrows(ResourceNotFoundException.class, () -> useCase.execute("legal"));
 

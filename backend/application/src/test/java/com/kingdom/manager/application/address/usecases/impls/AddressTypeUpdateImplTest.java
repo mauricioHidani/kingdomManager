@@ -26,7 +26,8 @@ class AddressTypeUpdateImplTest {
     private AddressTypeInput input;
     private AddressTypeInput inputUpdate;
 
-    @BeforeEach void setUp() throws Exception {
+    @BeforeEach
+    void setUp() throws Exception {
         gateway = Mockito.mock(AddressTypeGateway.class);
         useCase = new AddressTypeUpdateImpl(gateway);
 
@@ -36,8 +37,9 @@ class AddressTypeUpdateImplTest {
         inputUpdate = new AddressTypeInput("commercial", "description of commercial");
     }
 
+    @Test
     @DisplayName("Update By Id Should Return Updated When Successful Update")
-    @Test void execute_whenSuccessfulUpdate() {
+    void updateByIdShouldReturnUpdatedWhenSuccessfulUpdate() {
         when(gateway.getReferenceById(1)).thenReturn(modelWithId);
         when(gateway.save(modelUpdate)).thenReturn(modelUpdate);
 
@@ -53,26 +55,30 @@ class AddressTypeUpdateImplTest {
         assertNotEquals(result.description(), modelWithId.description());
     }
 
-    @DisplayName("Update By Id Should Return Resource Not Found Exception When Does Not Found")
-    @Test void execute_whenDoesNotFound() {
+    @Test
+    @DisplayName("Update By Id Should Throw Resource Not Found Exception When Does Not Found")
+    void updateByIdShouldThrowResourceNotFoundExceptionWhenDoesNotFound() {
         when(gateway.getReferenceById(1000)).thenReturn(null);
         assertThrows(ResourceNotFoundException.class, () -> useCase.execute(1000, input));
 
         verify(gateway, times(1)).getReferenceById(any(Integer.class));
     }
 
-    @DisplayName("Update By Id Should Return Invalid Argument Exception When Id Is Null")
-    @Test void update_whenIdIsNull() {
+    @Test
+    @DisplayName("Update By Id Should Throw Invalid Argument Exception When Id Is Null")
+    void updateByIdShouldThrowInvalidArgumentExceptionWhenIdIsNull() {
         assertThrows(InvalidArgumentException.class, () -> useCase.execute(null, input));
     }
 
-    @DisplayName("Update By Id Should Return Invalid Argument Exception When Id Less Then One")
-    @Test void execute_whenIdLessThenOne() {
+    @Test
+    @DisplayName("Update By Id Should Throw Invalid Argument Exception When Id Less Then One")
+    void updateByIdShouldThrowInvalidArgumentExceptionWhenIdLessThen() {
         assertThrows(InvalidArgumentException.class, () -> useCase.execute(-1, input));
     }
 
-    @DisplayName("Update By Id Should Return Invalid Argument Exception When Without Providing Information To Update")
-    @Test void execute_whenWithoutProvidingInformationToUpdate() {
+    @Test
+    @DisplayName("Update By Id Should Throw Invalid Argument Exception When Without Providing Information To Update")
+    void updateByIdShouldThrowInvalidArgumentExceptionWhenWithoutProvidingInformationToUpdate() {
         assertThrows(InvalidArgumentException.class, () -> useCase.execute(1, null));
     }
 

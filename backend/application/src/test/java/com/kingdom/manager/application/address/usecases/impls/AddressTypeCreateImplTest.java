@@ -25,7 +25,8 @@ class AddressTypeCreateImplTest {
     private AddressTypeOutput output;
     private AddressTypeInput input;
 
-    @BeforeEach void setUp() throws Exception {
+    @BeforeEach
+    void setUp() throws Exception {
         gateway = Mockito.mock(AddressTypeGateway.class);
         useCase = new AddressTypeCreateImpl(gateway);
 
@@ -37,8 +38,9 @@ class AddressTypeCreateImplTest {
         when(gateway.save(newModel)).thenReturn(modelWithId);
     }
 
-    @DisplayName("Create Address Type Should Return Output Model When Successful Created")
-    @Test void execute_whenSuccessfulCreated() {
+    @Test
+    @DisplayName("Create Should Return Output When Successful Create")
+    void createShouldReturnOutputWhenSuccessfulCreate() {
         var result = useCase.execute(input);
 
         assertNotNull(result);
@@ -46,13 +48,15 @@ class AddressTypeCreateImplTest {
         assertEquals(result.description(), output.description());
     }
 
-    @DisplayName("Create Address Type Should Return Invalid Argument Exception When Input Is Null")
-    @Test void execute_whenInputIsNull() {
+    @Test
+    @DisplayName("Create Should Throw Invalid Argument Exception When Input Is Null")
+    void createShouldThrowInvalidArgumentExceptionWhenInputIsNull() {
         assertThrows(InvalidArgumentException.class, () -> useCase.execute(null));
     }
 
-    @DisplayName("Create Address Type Should Return Database Exception When Does Not Save")
-    @Test void execute_whenDoesNotSave() {
+    @Test
+    @DisplayName("Create Should Throw Database Exception When Does Not Save")
+    void createShouldThrowDatabaseExceptionWhenDoesNotSave() {
         when(gateway.save(newModel)).thenThrow(DatabaseException.class);
         assertThrows(DatabaseException.class, () -> useCase.execute(input));
 

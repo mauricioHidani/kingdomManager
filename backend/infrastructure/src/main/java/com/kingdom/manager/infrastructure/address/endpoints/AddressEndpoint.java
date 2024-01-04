@@ -4,10 +4,10 @@ import com.kingdom.manager.application.address.in.AddressInput;
 import com.kingdom.manager.application.address.out.AddressOutput;
 import com.kingdom.manager.infrastructure.address.services.AddressService;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+
+import java.util.UUID;
 
 @RestController
 @RequestMapping("/api/v1/addresses")
@@ -21,7 +21,20 @@ public class AddressEndpoint {
 
     @PostMapping
     public ResponseEntity<AddressOutput> create(@RequestBody AddressInput input) {
-        return ResponseEntity.ok(service.create(input));
+        var result = service.create(input);
+        var uri = ServletUriComponentsBuilder
+                .fromCurrentRequestUri()
+                .path("/{id}")
+                .buildAndExpand(result.id())
+                .toUri();
+        return ResponseEntity
+                .created(uri)
+                .body(result);
+    }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<AddressOutput> findById(@PathVariable UUID id) {
+        return ResponseEntity.ok(service.findById(id));
     }
 
 }

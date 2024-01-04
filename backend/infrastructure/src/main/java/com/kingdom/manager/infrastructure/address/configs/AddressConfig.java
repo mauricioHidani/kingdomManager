@@ -19,4 +19,5 @@ public class AddressConfig {
     @Bean public AddressGateway addressGateway(JpaAddressRepository repository) {
         return new AddressGatewayImpl(repository);
     }
+
 }

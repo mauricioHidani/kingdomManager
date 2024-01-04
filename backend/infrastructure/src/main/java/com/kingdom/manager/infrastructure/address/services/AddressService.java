@@ -30,7 +30,7 @@ public class AddressService {
 
     @Transactional(readOnly = true)
     public AddressOutput findById(UUID id) {
-        return findById(id);
+        return findById.execute(id);
     }
 
 }
